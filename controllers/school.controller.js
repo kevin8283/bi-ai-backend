@@ -105,6 +105,42 @@ const addExposition = async (req, res) => {
     }
 }
 
+const getWebPageInsights = async (req, res) => {
+    try {
+        const { day, month, year } = req.body
+        const id = req.params.id
+        
+        const school = await School.findById(id)
+        let resultIndex = 0
+
+        const result = school.webpage_views_count.find((item, index) => {
+            const review_date = new Date(item.date)
+            const review_day = review_date.getDate()
+            const review_month = review_date.getMonth()
+            const review_year = review_date.getFullYear()
+
+            if (review_day === day && review_month === (month - 1) && review_year === year) {
+                resultIndex = index
+
+                return true
+            }
+            return false 
+        })
+
+        const yesterday_count = school.webpage_views_count[resultIndex - 1].count
+
+        return res.json({
+            date: result.date,
+            count: result.count,
+            growth: ((result.count - yesterday_count) / yesterday_count).toPrecision(2) * 100
+        })
+    } 
+    catch (error) {
+        return res.json(error)
+    }
+}
+
 module.exports = { getSchool, getAllSchool, createSchool, deleteSchool,
-    addFinancingRequestInfos, addReceivedFinancing, addExposition
+    addFinancingRequestInfos, addReceivedFinancing, addExposition,
+    getWebPageInsights
 }

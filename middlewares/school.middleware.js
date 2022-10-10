@@ -55,8 +55,24 @@ const validateReceivedFinancing = (req, res, next) => {
     return next()
 }
 
+const validateInsights = (req, res, next) => {
+    const requestSchema = joi.object({
+        day: joi.number().min(1).max(31).required(),
+        month: joi.number().min(1).max(12).required(),
+        year: joi.number().required()
+    })
+
+    const result = requestSchema.validate(req.body)
+
+    if (result.error) {
+        return res.json(result.error.details[0].message)
+    }
+    return next()
+}
+
 const validateExposition = validateFinancingRequestInfos
 
 module.exports = { validateCreateSchool, validateId,
-    validateExposition, validateFinancingRequestInfos, validateReceivedFinancing
+    validateExposition, validateFinancingRequestInfos, validateReceivedFinancing,
+    validateInsights
 }
