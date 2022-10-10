@@ -11,20 +11,34 @@ const schoolSchema = mongoose.Schema({
     status: {
         type: String
     },
-    expositions: {
-        type: Number
-    },
-    financing_request: {
-        type: Number
-    },
-    received_financing: {
-        year: Number,
-        amount: Number
-    },
-    webpage_views_count: {
+    expositions: [{
+        year: {
+            type: Number
+        },
+        count: {
+            type: Number
+        }
+    }],
+    financing_requests: [{
+        year: {
+            type: Number
+        },
+        count: {
+            type: Number
+        }
+    }],
+    received_financings: [{
+        year: {
+            type: Number
+        },
+        amount: {
+            type: Number
+        }
+    }],
+    webpage_views_count: [{
         date: Date,
         count: Number
-    }
+    }]
 })
 
 const schoolModel = mongoose.model("School", schoolSchema)

@@ -6,6 +6,7 @@ const mongoose = require("mongoose")
 dotenv.config()
 
 //API Routers
+const schoolRouter = require("./routes/school.route")
 const schoolDomainRouter = require("./routes/school_domain.route")
 
 const app = express()
@@ -26,6 +27,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
 //Routes
+app.use("/api/school", schoolRouter)
 app.use("/api/school-domain", schoolDomainRouter)
 
 app.listen(port, () => {
