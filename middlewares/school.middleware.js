@@ -4,7 +4,8 @@ const validateCreateSchool = (req, res, next) => {
     const schoolSchema = joi.object({
         name: joi.string().min(3).required(),
         student_count: joi.number().required(),
-        status: joi.string().min(3).required()
+        status: joi.string().min(3).required(),
+        activity_domains: joi.array().items(joi.string().hex().length(24)).min(1).required()
     })
 
     const result = schoolSchema.validate(req.body)

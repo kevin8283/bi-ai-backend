@@ -8,6 +8,9 @@ const schoolSchema = mongoose.Schema({
     students_count: {
         type: Number
     },
+    activity_domains: [{
+        type: mongoose.Schema.Types.ObjectId
+    }],
     status: {
         type: String
     },

@@ -5,19 +5,17 @@ const companySchema = mongoose.Schema({
         type: String,
         required: true
     },
-    activity_domains: {
-        type: Array
-    },
+    activity_domains: [{
+        type: mongoose.Schema.Types.ObjectId
+    
+    }],
     current_value: {
         type: Number
     },
     financings: [{
         beneficiary: mongoose.Types.ObjectId,
         amount: Number
-    }],
-    financing_budget: {
-        type: Number
-    }
+    }]
 })
 
 const companyModel = mongoose.model("Company", companySchema)

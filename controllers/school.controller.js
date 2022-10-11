@@ -26,7 +26,8 @@ const createSchool = async (req, res) => {
         const school = new School({
             name: req.body.name,
             student_count: req.body.student_count,
-            status: req.body.status
+            status: req.body.status,
+            activity_domains: req.body.activity_domains
         })
     
         const result = await school.save()
